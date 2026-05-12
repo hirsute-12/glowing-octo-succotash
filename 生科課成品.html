@@ -68,12 +68,58 @@
         }
 
         /* 堆疊網格 (LED桌燈) */
-        .led-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
-        }
+        /* 作品堆疊容器 */
+.stack-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+/* 基礎堆疊構造 */
+.photo-stack {
+    position: relative;
+    height: 400px; /* 增加高度以容納展開空間 */
+    width: 100%;
+    cursor: pointer;
+}
+
+/* 堆疊中的每一張照片 */
+.photo-stack img {
+    position: absolute;
+    width: 280px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 2px solid var(--neon-cyan);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: var(--card-bg);
+}
+
+/* --- LED 桌燈六張照片的堆疊位置 --- */
+.led-stack img:nth-child(1) { transform: rotate(-5deg); z-index: 6; }
+.led-stack img:nth-child(2) { transform: rotate(3deg) translate(10px, 10px); z-index: 5; }
+.led-stack img:nth-child(3) { transform: rotate(-2deg) translate(20px, 20px); z-index: 4; }
+.led-stack img:nth-child(4) { transform: rotate(5deg) translate(30px, 30px); z-index: 3; }
+.led-stack img:nth-child(5) { transform: rotate(-4deg) translate(40px, 40px); z-index: 2; }
+.led-stack img:nth-child(6) { transform: rotate(2deg) translate(50px, 50px); z-index: 1; }
+
+/* 懸停展開效果 (LED) */
+.led-stack:hover img:nth-child(1) { transform: translate(-150px, 0) rotate(-10deg); }
+.led-stack:hover img:nth-child(2) { transform: translate(-60px, -20px) rotate(-5deg); }
+.led-stack:hover img:nth-child(3) { transform: translate(30px, 10px) rotate(5deg); }
+.led-stack:hover img:nth-child(4) { transform: translate(120px, -10px) rotate(-3deg); }
+.led-stack:hover img:nth-child(5) { transform: translate(210px, 20px) rotate(8deg); }
+.led-stack:hover img:nth-child(6) { transform: translate(300px, 0) rotate(-5deg); }
+
+/* --- 藍牙喇叭兩張照片的堆疊 --- */
+.speaker-stack img:nth-child(1) { transform: rotate(-3deg); z-index: 2; }
+.speaker-stack img:nth-child(2) { transform: rotate(3deg) translate(15px, 15px); z-index: 1; }
+
+/* 懸停展開效果 (喇叭) */
+.speaker-stack:hover img:nth-child(1) { transform: translate(-80px, 0) rotate(-5deg); }
+.speaker-stack:hover img:nth-child(2) { transform: translate(80px, 0) rotate(5deg)
 
         .led-grid img {
             width: 100%;
@@ -148,10 +194,10 @@
 
     <div class="section-title">
         <span>01 // LED_COLOR_LAMP</span>
-        <small style="color: var(--text-gray); font-size: 0.8rem;">STATUS: COMPLETED</small>
     </div>
     
-    <div class="led-grid">
+<div class="stack-container">
+    <div class="photo-stack led-stack">
         <img src="lamp1.jpg" alt="桌燈效果 1">
         <img src="lamp2.jpg" alt="桌燈效果 2">
         <img src="lamp3.jpg" alt="桌燈效果 3">
@@ -162,22 +208,25 @@
     
     <div class="info-card">
         <h3>LED 變色星形桌燈</h3>
-        <p>此作品展示了從電路設計到木工加工的整合能力。內建可變電阻控制電路，支援多種色彩切換。圖片展示了黃、藍、綠、紅四種主要燈光模式，以及精確的內部電路焊接點位，確保電力傳輸的穩定性與安全性。</p>
+        <p>滑鼠懸停可展開查看完整開發紀錄。包含四種色溫切換展示及內部電路焊接細節。</p>
     </div>
+</div>
 
     <div class="section-title">
         <span>02 // BT_SPEAKER_SYSTEM</span>
     </div>
 
-    <div class="dual-layout">
+<div class="stack-container">
+    <div class="photo-stack speaker-stack">
         <img src="speaker-inside.jpg" alt="內部接線">
         <img src="speaker-outside.jpg" alt="成品外觀">
     </div>
     
     <div class="info-card">
         <h3>木頭藍芽喇叭</h3>
-        <p>專注於聲學空間優化與藍芽模組整合。左圖詳細紀錄了鋰電池管理系統與揚聲單體的接線配置；右圖則展現了原木外殼打磨後的質感。透過緊密的木工膠合技術，最大程度減少震動造成的音損。</p>
+        <p>展示內部精密的鋰電池管理系統與原木外殼打磨成果。</p>
     </div>
+</div>
 
     <div class="section-title">
         <span>03 // STRUCTURE & ENERGY</span>
