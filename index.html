@@ -3,40 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>資管小管理員的個人空間</title>
+    <title>ZZHcoolweb</title>
     <style>
         :root {
             --primary-color: #2c3e50;
             --accent-color: #3498db;
-            --bg-color: #f4f7f6;
-            --text-color: #333;
+            --bg-color: #f8fafc;
+            --text-color: #334155;
             --card-bg: #ffffff;
         }
 
         body {
-            font-family: 'Segoe UI', Microsoft JhengHei, sans-serif;
+            font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
             margin: 0;
             background-color: var(--bg-color);
             color: var(--text-color);
             display: flex;
+            line-height: 1.6;
         }
 
-        /* 導覽列樣式 */
+        /* 側邊導覽列 */
         nav {
-            width: 250px;
+            width: 260px;
             height: 100vh;
             background-color: var(--primary-color);
             color: white;
             position: fixed;
-            padding: 20px;
+            padding: 40px 25px;
             box-sizing: border-box;
+            box-shadow: 4px 0 10px rgba(0,0,0,0.1);
         }
 
         nav h2 {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            color: #fff;
             border-bottom: 2px solid var(--accent-color);
             padding-bottom: 10px;
-            margin-bottom: 30px;
         }
 
         nav ul {
@@ -45,140 +49,171 @@
         }
 
         nav ul li {
-            margin: 15px 0;
+            margin-bottom: 20px;
         }
 
         nav ul li a {
-            color: #ecf0f1;
+            color: #cbd5e1;
             text-decoration: none;
-            font-size: 1.1rem;
-            transition: color 0.3s;
+            font-size: 1.05rem;
+            transition: all 0.3s;
+            display: block;
         }
 
         nav ul li a:hover {
-            color: var(--accent-color);
+            color: white;
+            padding-left: 10px;
         }
 
         /* 主內容區 */
         main {
-            margin-left: 250px;
-            padding: 40px;
-            width: 100%;
+            margin-left: 260px;
+            padding: 60px 50px;
+            width: calc(100% - 260px);
+            box-sizing: border-box;
         }
 
-        .section {
-            margin-bottom: 50px;
+        section {
+            margin-bottom: 60px;
         }
 
         h3 {
-            font-size: 1.8rem;
+            font-size: 1.75rem;
+            margin-bottom: 30px;
             color: var(--primary-color);
-            border-left: 5px solid var(--accent-color);
-            padding-left: 15px;
-            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
         }
 
-        /* 卡片佈局 */
-        .grid {
+        h3::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #e2e8f0;
+            margin-left: 20px;
+        }
+
+        /* 關鍵修改：強制三欄佈局 */
+        .grid-three {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(3, 1fr); /* 強制分為三欄 */
+            gap: 25px;
+        }
+
+        /* 兩欄佈局（用於多元表現） */
+        .grid-two {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
         }
 
         .card {
             background: var(--card-bg);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            padding: 30px;
+            border-radius: 12px;
             text-decoration: none;
             color: inherit;
-            display: block;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.06);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+            border-color: var(--accent-color);
         }
 
         .card h4 {
-            margin: 0 0 10px 0;
-            color: var(--accent-color);
+            margin: 0 0 12px 0;
+            font-size: 1.2rem;
+            color: var(--primary-color);
         }
 
         .card p {
-            font-size: 0.9rem;
-            color: #666;
             margin: 0;
+            font-size: 0.95rem;
+            color: #64748b;
+        }
+
+        /* 手機版適應：寬度不足時自動變回一欄 */
+        @media (max-width: 1024px) {
+            .grid-three { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media (max-width: 768px) {
             body { flex-direction: column; }
-            nav { width: 100%; height: auto; position: relative; }
-            main { margin-left: 0; padding: 20px; }
+            nav { width: 100%; height: auto; position: relative; padding: 20px; }
+            main { margin-left: 0; width: 100%; padding: 30px 20px; }
+            .grid-three, .grid-two { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <h2>個人學習檔案</h2>
+        <h2>學習檔案管理</h2>
         <ul>
-            <li><a href="#resume">簡歷</a></li>
+            <li><a href="#resume">個人簡歷</a></li>
             <li><a href="#performance">多元表現</a></li>
-            <li><a href="#portfolio">作品集</a></li>
+            <li><a href="#portfolio">作品集展示</a></li>
         </ul>
     </nav>
 
     <main>
-        <section id="resume" class="section">
+        <section id="resume">
             <h3>簡歷</h3>
-            <a href="簡歷.html" class="card">
-                <h4>我的個人簡歷</h4>
-                <p>包含教育背景、專業技能與社團經歷。</p>
-            </a>
-        </section>
-
-        <section id="performance" class="section">
-            <h3>多元表現</h3>
-            <div class="grid">
-                <a href="多元表現.html" class="card">
-                    <h4>多元表現紀錄</h4>
-                    <p>彙整各項競賽、服務學習與課外活動成果。</p>
-                </a>
-                <a href="綜整心得.html" class="card">
-                    <h4>綜整心得</h4>
-                    <p>對學習歷程的反思與未來展望。</p>
+            <div style="max-width: 400px;">
+                <a href="簡歷.html" class="card">
+                    <h4>我的個人簡歷</h4>
+                    <p>專業技能、學歷背景與社團經歷彙整。</p>
                 </a>
             </div>
         </section>
 
-        <section id="portfolio" class="section">
+        <section id="performance">
+            <h3>多元表現</h3>
+            <div class="grid-two">
+                <a href="多元表現.html" class="card">
+                    <h4>多元表現紀錄</h4>
+                    <p>課外活動、志願服務與競賽成果。</p>
+                </a>
+                <a href="綜整心得.html" class="card">
+                    <h4>綜整心得</h4>
+                    <p>對過往學習歷程的深度總結與反思。</p>
+                </a>
+            </div>
+        </section>
+
+        <section id="portfolio">
             <h3>作品集</h3>
-            <div class="grid">
+            <div class="grid-three">
                 <a href="iPhone捷徑製作.html" class="card">
                     <h4>iPhone 捷徑製作</h4>
-                    <p>利用 iOS 捷徑實現生活自動化的小工具。</p>
+                    <p>iOS 自動化工作流設計。</p>
                 </a>
                 <a href="Github_web.html" class="card">
                     <h4>網頁設計 Github Web</h4>
-                    <p>個人網頁開發專案與原始碼展示。</p>
+                    <p>前端開發專案原始碼。</p>
                 </a>
                 <a href="生科課成品.html" class="card">
                     <h4>生科課成品</h4>
-                    <p>生命科學課程中的手作與實驗成果。</p>
+                    <p>實作課程成果紀錄。</p>
                 </a>
                 <a href="JAVA小遊戲-數字拼圖.html" class="card">
-                    <h4>JAVA 小遊戲：數字拼圖</h4>
-                    <p>基於 Java Swing 開發的邏輯益智遊戲。</p>
+                    <h4>JAVA 數字拼圖</h4>
+                    <p>邏輯程式開發與 GUI 實作。</p>
                 </a>
                 <a href="PS修圖作品集.html" class="card">
                     <h4>PS 修圖作品集</h4>
-                    <p>使用 Photoshop 進行影像處理與視覺設計。</p>
+                    <p>影像美化與創意合成。</p>
                 </a>
                 <a href="微積分期中94.html" class="card">
-                    <h4>微積分期中成果</h4>
-                    <p>期中考 94 分的優異表現與筆記整理。</p>
+                    <h4>微積分期中 94</h4>
+                    <p>數理邏輯能力的學習見證。</p>
                 </a>
             </div>
         </section>
