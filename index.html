@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>個人學習歷程檔案</title>
+    <title>ZZHcoolweb - 黃證哲的個人空間</title>
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -22,14 +22,14 @@
             line-height: 1.6;
         }
 
-        /* 側邊導覽列 (恢復條列式) */
+        /* 側邊導覽列 */
         nav {
             width: 260px;
             height: 100vh;
             background-color: var(--primary-color);
             color: white;
             position: fixed;
-            padding: 50px 25px;
+            padding: 40px 25px;
             box-sizing: border-box;
             box-shadow: 4px 0 10px rgba(0,0,0,0.1);
         }
@@ -38,6 +38,7 @@
             font-size: 1.4rem;
             letter-spacing: 2px;
             margin-bottom: 40px;
+            color: #fff;
             border-bottom: 2px solid var(--accent-color);
             padding-bottom: 10px;
         }
@@ -54,7 +55,7 @@
         nav ul li a {
             color: #cbd5e1;
             text-decoration: none;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             transition: all 0.3s;
             display: block;
         }
@@ -72,33 +73,67 @@
             box-sizing: border-box;
         }
 
-        /* 簡歷上方的照片樣式 */
-        .resume-header {
-            margin-bottom: 30px;
-        }
-        
-        .profile-header {
-        margin-bottom: 25px;
-        }
-        
-        .profile-img-content {
-            width: 160px;
-            height: 160px;
-            border-radius: 12px; /* 這裡改為稍微圓角，看起來更專業 */
-            object-fit: cover;
-            border: 4px solid white;
-            box-shadow: 0 10px 15px  rgba(0, 0, 0, 0.1);
-            object-fit: cover;
-            object-position: top;
+        /* 個人簡歷區美編 */
+        .profile-section {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+            margin-bottom: 50px;
+            border: 1px solid #e2e8f0;
         }
 
-        section {
-            margin-bottom: 60px;
+        .profile-img-container {
+            flex-shrink: 0;
         }
 
+        .profile-img {
+            width: 180px;
+            height: 220px;
+            border-radius: 10px;
+            object-fit: cover;
+            object-position: top; /* 關鍵：確保頭部不被切掉 */
+            border: 4px solid #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .profile-info {
+            flex-grow: 1;
+        }
+
+        .profile-info h1 {
+            margin: 0 0 15px 0;
+            color: var(--primary-color);
+            font-size: 2rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 10px 20px;
+        }
+
+        .info-label {
+            font-weight: bold;
+            color: var(--accent-color);
+            white-space: nowrap;
+        }
+
+        .info-content {
+            color: var(--text-color);
+        }
+
+        .info-item {
+            margin-bottom: 5px;
+        }
+
+        /* 區塊標題 */
         h3 {
-            font-size: 1.75rem;
-            margin-bottom: 30px;
+            font-size: 1.5rem;
+            margin-bottom: 25px;
             color: var(--primary-color);
             display: flex;
             align-items: center;
@@ -112,7 +147,7 @@
             margin-left: 20px;
         }
 
-        /* 網格佈局 */
+        /* 作品集網格佈局 */
         .grid-three {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -127,35 +162,46 @@
 
         .card {
             background: var(--card-bg);
-            padding: 30px;
+            padding: 25px;
             border-radius: 12px;
             text-decoration: none;
             color: inherit;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             border: 1px solid #e2e8f0;
             transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
 
         .card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 20px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
             border-color: var(--accent-color);
         }
 
-        .card h4 { margin: 0 0 10px 0; color: var(--primary-color); }
-        .card p { margin: 0; font-size: 0.95rem; color: #64748b; }
+        .card h4 {
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+        }
+
+        .card p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
 
         /* 響應式 */
         @media (max-width: 1024px) {
+            .profile-section { flex-direction: column; align-items: center; text-align: center; }
+            .info-grid { text-align: left; }
             .grid-three { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media (max-width: 768px) {
             body { flex-direction: column; }
-            nav { width: 100%; height: auto; position: relative; padding: 30px; }
-            main { margin-left: 0; width: 100%; padding: 40px 20px; }
+            nav { width: 100%; height: auto; position: relative; padding: 20px; }
+            main { margin-left: 0; width: 100%; padding: 30px 20px; }
             .grid-three, .grid-two { grid-template-columns: 1fr; }
-            .profile-img-content { width: 120px; height: 120px; }
         }
     </style>
 </head>
@@ -164,7 +210,7 @@
     <nav>
         <h2>學習檔案管理</h2>
         <ul>
-            <li><a href="#resume">個人簡歷</a></li>
+            <li><a href="#resume">個人資料</a></li>
             <li><a href="#performance">多元表現</a></li>
             <li><a href="#portfolio">作品集展示</a></li>
         </ul>
@@ -172,27 +218,49 @@
 
     <main>
         <section id="resume">
-            <div class="profile-header">
-                <img src="686540972_1003108218996838_5756587725094398876_n.jpg" alt="個人照" class="profile-img-content">
-            </div>
-            <h3>簡歷</h3>
-            <div style="max-width: 400px;">
-                <a href="簡歷.html" class="card">
-                    <h4>我的個人簡歷</h4>
-                    <p>專業技能、學歷背景與社團經歷彙整。</p>
-                </a>
+            <div class="profile-section">
+                <div class="profile-img-container">
+                    <img src="686540972_1003108218996838_5756587725094398876_n.jpg" alt="黃證哲個人照" class="profile-img">
+                </div>
+                <div class="profile-info">
+                    <h1>姓名：黃證哲</h1>
+                    <div class="info-grid">
+                        <div class="info-label">就學經歷</div>
+                        <div class="info-content">
+                            <div class="info-item">國立彰化師範大學 資訊管理學系</div>
+                            <div class="info-item">高雄市立新興高級中學</div>
+                        </div>
+
+                        <div class="info-label">相關語言</div>
+                        <div class="info-content">JAVA、Python、HTML/CSS、PHP</div>
+
+                        <div class="info-label">幹部經歷</div>
+                        <div class="info-content">
+                            <div class="info-item">彰師大白沙心言手語社 器材</div>
+                            <div class="info-item">彰師大資管系 班代</div>
+                        </div>
+
+                        <div class="info-label">學習經驗</div>
+                        <div class="info-content">
+                            <div class="info-item">新興高中棒球隊隊員</div>
+                            <div class="info-item">日本長野高校學生交流計畫</div>
+                            <div class="info-item">陽明國中晚自習解題志工</div>
+                            <div class="info-item">微羽星空偏鄉服務團</div>
+                            <div class="info-item">2026 表創性藝術治療國際研討會工作人員</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
         <section id="performance">
             <h3>多元表現</h3>
-            <p>使用過往個人申請時的檔案，校系沒更改請見諒orz</p>
             <div class="grid-two">
                 <a href="暨大諮人多元表現.pdf" class="card">
-                    <h4>多元表現</h4>
+                    <h4>多元表現紀錄</h4>
                     <p>課外活動、志願服務與競賽成果。</p>
                 </a>
-                <a href="暨大諮人多元表現綜整心得.pdf" class="card">
+                <a href="暨大多元表現綜整心得.pdf" class="card">
                     <h4>綜整心得</h4>
                     <p>對過往學習歷程的深度總結與反思。</p>
                 </a>
