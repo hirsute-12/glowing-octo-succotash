@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>生科課實作成果</title>
+    <title>生科實作成果 | 科技感作品集</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
     <style>
         :root {
             --bg-dark: #0a0b10;
@@ -15,6 +16,7 @@
             --text-gray: #8b949e;
         }
 
+        /* 基礎設定 */
         body {
             background-color: var(--bg-dark);
             color: #ffffff;
@@ -22,9 +24,10 @@
             margin: 0;
             padding: 0;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* 科技感背景線條 */
+        /* 背景裝飾格線 */
         body::before {
             content: "";
             position: fixed;
@@ -43,202 +46,181 @@
 
         header h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             color: var(--neon-cyan);
-            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
-            margin-bottom: 10px;
+            text-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+            margin: 0;
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
         }
 
-        /* 作品區塊標題 */
+        /* 區塊標題 */
         .section-title {
             font-family: 'Orbitron', sans-serif;
             border-left: 4px solid var(--neon-red);
             padding-left: 15px;
-            margin: 40px 0 20px 0;
-            font-size: 1.5rem;
+            margin: 50px 0 20px 0;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        /* 堆疊網格 (LED桌燈) */
-        /* 作品堆疊容器 */
-.stack-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 40px;
-    margin-bottom: 40px;
-}
+        /* --- 滑動堆疊效果核心 CSS --- */
+        .slider-stack {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 20px;
+            padding: 10px 5px 25px 5px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--neon-cyan) transparent;
+        }
 
-/* 基礎堆疊構造 */
-.photo-stack {
-    position: relative;
-    height: 400px; /* 增加高度以容納展開空間 */
-    width: 100%;
-    cursor: pointer;
-}
+        /* 捲軸美化 */
+        .slider-stack::-webkit-scrollbar { height: 6px; }
+        .slider-stack::-webkit-scrollbar-thumb { background: var(--neon-cyan); border-radius: 10px; }
 
-/* 堆疊中的每一張照片 */
-.photo-stack img {
-    position: absolute;
-    width: 280px;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 12px;
-    border: 2px solid var(--neon-cyan);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    background: var(--card-bg);
-}
+        .slider-item {
+            flex: 0 0 300px;
+            height: 220px;
+            scroll-snap-align: start;
+        }
 
-/* --- LED 桌燈六張照片的堆疊位置 --- */
-.led-stack img:nth-child(1) { transform: rotate(-5deg); z-index: 6; }
-.led-stack img:nth-child(2) { transform: rotate(3deg) translate(10px, 10px); z-index: 5; }
-.led-stack img:nth-child(3) { transform: rotate(-2deg) translate(20px, 20px); z-index: 4; }
-.led-stack img:nth-child(4) { transform: rotate(5deg) translate(30px, 30px); z-index: 3; }
-.led-stack img:nth-child(5) { transform: rotate(-4deg) translate(40px, 40px); z-index: 2; }
-.led-stack img:nth-child(6) { transform: rotate(2deg) translate(50px, 50px); z-index: 1; }
-
-/* 懸停展開效果 (LED) */
-.led-stack:hover img:nth-child(1) { transform: translate(-150px, 0) rotate(-10deg); }
-.led-stack:hover img:nth-child(2) { transform: translate(-60px, -20px) rotate(-5deg); }
-.led-stack:hover img:nth-child(3) { transform: translate(30px, 10px) rotate(5deg); }
-.led-stack:hover img:nth-child(4) { transform: translate(120px, -10px) rotate(-3deg); }
-.led-stack:hover img:nth-child(5) { transform: translate(210px, 20px) rotate(8deg); }
-.led-stack:hover img:nth-child(6) { transform: translate(300px, 0) rotate(-5deg); }
-
-/* --- 藍牙喇叭兩張照片的堆疊 --- */
-.speaker-stack img:nth-child(1) { transform: rotate(-3deg); z-index: 2; }
-.speaker-stack img:nth-child(2) { transform: rotate(3deg) translate(15px, 15px); z-index: 1; }
-
-/* 懸停展開效果 (喇叭) */
-.speaker-stack:hover img:nth-child(1) { transform: translate(-80px, 0) rotate(-5deg); }
-.speaker-stack:hover img:nth-child(2) { transform: translate(80px, 0) rotate(5deg)
-
-        .led-grid img {
+        /* 統一圖片邊框樣式 */
+        .tech-border {
             width: 100%;
-            height: 200px;
+            height: 100%;
             object-fit: cover;
-            border-radius: 8px;
-            border: 1px solid #30363d;
+            border: 2px solid var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+            border-radius: 12px;
+            display: block;
             transition: 0.3s;
-            filter: grayscale(20%);
         }
 
-        .led-grid img:hover {
-            filter: grayscale(0%);
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
-            transform: scale(1.02);
+        .tech-border:hover {
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.5);
+            transform: translateY(-5px);
         }
 
-        /* 作品介紹盒 */
+        /* 介紹資訊卡片 */
         .info-card {
             background: var(--card-bg);
             padding: 25px;
-            border-radius: 12px;
+            border-radius: 15px;
             border: 1px solid #30363d;
-            margin-bottom: 50px;
+            margin-bottom: 20px;
         }
 
         .info-card h3 {
             color: var(--neon-cyan);
             margin-top: 0;
+            font-size: 1.4rem;
         }
 
-        /* 橫向佈局 (喇叭/車/橋) */
+        .info-card p {
+            color: var(--text-gray);
+            margin-bottom: 0;
+        }
+
+        /* 太陽能車與木橋的並排佈局 */
         .dual-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 30px;
+            gap: 25px;
+            margin-bottom: 50px;
         }
 
-        .dual-layout img {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            border-radius: 12px;
-            border: 1px solid #30363d;
+        .project-box {
+            display: flex;
+            flex-direction: column;
         }
 
-        .desc-small {
-            font-size: 0.9rem;
-            color: var(--text-gray);
-            margin-top: 10px;
+        .project-box img {
+            height: 250px; /* 修正圖片過大的問題，統一高度 */
         }
 
         footer {
             text-align: center;
-            padding: 40px;
+            padding: 60px 20px;
+            font-family: 'Orbitron', sans-serif;
             font-size: 0.8rem;
             color: var(--text-gray);
             border-top: 1px solid #30363d;
+            margin-top: 40px;
+        }
+
+        /* 手機版優化 */
+        @media (max-width: 768px) {
+            .dual-layout { grid-template-columns: 1fr; }
+            .slider-item { flex: 0 0 80%; }
         }
     </style>
 </head>
+<body>
+
 <header>
-    <h1>PROJECT_BIO-TECH_PORTFOLIO</h1>
-    <p>生活科技實作成果展示 | 核心硬體與結構開發</p>
+    <h1>BIO-TECH_TERMINAL_V1.0</h1>
+    <p style="color: var(--text-gray);">黃證哲 (Kevin) - 生活科技實作成果報告</p>
 </header>
 
 <div class="container">
 
     <div class="section-title">
-        <span>01 // LED_COLOR_LAMP_COLLECTION</span>
+        <span>01 // LED_LAMP_PROTOTYPE</span>
     </div>
-    
+
     <div class="slider-stack">
-        <div class="slider-item"><img src="lamp1.jpg" alt="1" class="tech-border"></div>
-        <div class="slider-item"><img src="lamp2.jpg" alt="2" class="tech-border"></div>
-        <div class="slider-item"><img src="lamp3.jpg" alt="3" class="tech-border"></div>
-        <div class="slider-item"><img src="lamp4.jpg" alt="4" class="tech-border"></div>
-        <div class="slider-item"><img src="lamp5.jpg" alt="5" class="tech-border"></div>
-        <div class="slider-item"><img src="lamp6.jpg" alt="6" class="tech-border"></div>
+        <div class="slider-item"><img src="lamp1.jpg" alt="桌燈 1" class="tech-border"></div>
+        <div class="slider-item"><img src="lamp2.jpg" alt="桌燈 2" class="tech-border"></div>
+        <div class="slider-item"><img src="lamp3.jpg" alt="桌燈 3" class="tech-border"></div>
+        <div class="slider-item"><img src="lamp4.jpg" alt="桌燈 4" class="tech-border"></div>
+        <div class="slider-item"><img src="lamp5.jpg" alt="桌燈 5" class="tech-border"></div>
+        <div class="slider-item"><img src="lamp6.jpg" alt="桌燈 6" class="tech-border"></div>
     </div>
     
     <div class="info-card">
         <h3>LED 變色星形桌燈</h3>
-        <p>向右滑動上方卡片可查看完整開發歷程。包含電路焊接細節與多種燈光模式展示。</p>
+        <p><i class="fa-solid fa-arrow-right"></i> 滑動上方卡片查看細節。此作品整合了木工切割、壓克力雕刻與電路焊接技術。內建可變電阻調整電流，實現紅、藍、綠、黃等不同色溫的轉換，並展現了清晰的硬體佈線邏輯。</p>
     </div>
 
     <div class="section-title">
-        <span>02 // BT_SPEAKER_DATA</span>
+        <span>02 // AUDIO_ENGINEERING</span>
     </div>
 
     <div class="slider-stack">
-        <div class="slider-item" style="flex: 0 0 45%;"><img src="speaker-inside.jpg" alt="內" class="tech-border"></div>
-        <div class="slider-item" style="flex: 0 0 45%;"><img src="speaker-outside.jpg" alt="外" class="tech-border"></div>
+        <div class="slider-item" style="flex: 0 0 450px;"><img src="speaker-inside.jpg" alt="內部結構" class="tech-border"></div>
+        <div class="slider-item" style="flex: 0 0 450px;"><img src="speaker-outside.jpg" alt="成品外觀" class="tech-border"></div>
     </div>
     
     <div class="info-card">
-        <h3>木頭藍牙喇叭</h3>
-        <p>左圖為內部的鋰電池與接線配置，右圖為打磨後的質感外觀。</p>
+        <h3>木質藍牙音響系統</h3>
+        <p>此專題著重於聲學外殼的密封性與電路整合。我將鋰電池管理模組、藍牙接收器與擴大機版精密排列於木質共鳴箱內，確保低音穩定且具備便攜式的充電功能。</p>
     </div>
 
     <div class="section-title">
-        <span>03 // STRUCTURE_LAB</span>
+        <span>03 // STRUCTURE_&_ENERGY</span>
     </div>
 
     <div class="dual-layout">
         <div class="project-box">
             <img src="solar-car.jpg" alt="太陽能車" class="tech-border">
-            <div class="info-card">
-                <strong>太陽能動力車</strong>
-                <p style="font-size: 0.9rem; color: #8b949e;">優化能源轉換效率的動能專題。</p>
+            <div class="info-card" style="margin-top: 15px;">
+                <strong style="color: var(--neon-cyan);">太陽能動力車</strong>
+                <p style="font-size: 0.9rem;">學習光能轉換動能，並透過車體輕量化提升行駛效率。</p>
             </div>
         </div>
         <div class="project-box">
             <img src="wood-bridge.jpg" alt="木橋" class="tech-border">
-            <div class="info-card">
-                <strong>桁架結構木橋</strong>
-                <p style="font-size: 0.9rem; color: #8b949e;">測試物理受力極限的結構設計。</p>
+            <div class="info-card" style="margin-top: 15px;">
+                <strong style="color: var(--neon-red);">桁架結構木橋</strong>
+                <p style="font-size: 0.9rem;">以三角形受力原理設計，挑戰極致的承重比與結構穩定度。</p>
             </div>
         </div>
     </div>
@@ -246,6 +228,8 @@
 </div>
 
 <footer>
-    <p>DECODED BY KEVIN HUANG // 2026 NCUE_IM_STUDENT</p>
+    <p>NCUE_IM_STUDENT // ACCESS_GRANTED // 2026</p>
 </footer>
+
+</body>
 </html>
