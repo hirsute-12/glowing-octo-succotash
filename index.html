@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZZHcoolweb</title>
+    <title>個人學習歷程檔案</title>
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -29,27 +29,41 @@
             background-color: var(--primary-color);
             color: white;
             position: fixed;
-            padding: 40px 25px;
+            padding: 30px 25px;
             box-sizing: border-box;
             box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* 讓內容置中 */
+        }
+
+        /* 個人照片樣式 */
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%; /* 圓形 */
+            object-fit: cover;
+            border: 3px solid var(--accent-color);
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
         nav h2 {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             letter-spacing: 2px;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             color: #fff;
-            border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 10px;
+            text-align: center;
         }
 
         nav ul {
             list-style: none;
             padding: 0;
+            width: 100%;
         }
 
         nav ul li {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         nav ul li a {
@@ -58,11 +72,12 @@
             font-size: 1.05rem;
             transition: all 0.3s;
             display: block;
+            text-align: center;
         }
 
         nav ul li a:hover {
             color: white;
-            padding-left: 10px;
+            transform: scale(1.05);
         }
 
         /* 主內容區 */
@@ -93,14 +108,13 @@
             margin-left: 20px;
         }
 
-        /* 關鍵修改：強制三欄佈局 */
+        /* 佈局設定 */
         .grid-three {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 強制分為三欄 */
+            grid-template-columns: repeat(3, 1fr);
             gap: 25px;
         }
 
-        /* 兩欄佈局（用於多元表現） */
         .grid-two {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -113,23 +127,21 @@
             border-radius: 12px;
             text-decoration: none;
             color: inherit;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.06);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             border: 1px solid #e2e8f0;
             transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
-            justify-content: center;
         }
 
         .card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 25px rgba(0,0,0,0.1);
             border-color: var(--accent-color);
         }
 
         .card h4 {
-            margin: 0 0 12px 0;
-            font-size: 1.2rem;
+            margin: 0 0 10px 0;
             color: var(--primary-color);
         }
 
@@ -139,14 +151,14 @@
             color: #64748b;
         }
 
-        /* 手機版適應：寬度不足時自動變回一欄 */
+        /* 響應式 */
         @media (max-width: 1024px) {
             .grid-three { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media (max-width: 768px) {
             body { flex-direction: column; }
-            nav { width: 100%; height: auto; position: relative; padding: 20px; }
+            nav { width: 100%; height: auto; position: relative; padding: 30px; }
             main { margin-left: 0; width: 100%; padding: 30px 20px; }
             .grid-three, .grid-two { grid-template-columns: 1fr; }
         }
@@ -155,6 +167,7 @@
 <body>
 
     <nav>
+        <img src="686540972_1003108218996838_5756587725094398876_n.jpg" alt="個人照" class="profile-img">
         <h2>學習檔案管理</h2>
         <ul>
             <li><a href="#resume">個人簡歷</a></li>
@@ -177,11 +190,11 @@
         <section id="performance">
             <h3>多元表現</h3>
             <div class="grid-two">
-                <a href="暨大諮人多元表現.pdf" class="card">
+                <a href="多元表現.html" class="card">
                     <h4>多元表現紀錄</h4>
                     <p>課外活動、志願服務與競賽成果。</p>
                 </a>
-                <a href="暨大多元表現綜整心得.pdf" class="card">
+                <a href="綜整心得.html" class="card">
                     <h4>綜整心得</h4>
                     <p>對過往學習歷程的深度總結與反思。</p>
                 </a>
