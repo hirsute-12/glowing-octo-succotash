@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>個人網頁</title>
+    <title>個人學習歷程檔案</title>
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -22,62 +22,46 @@
             line-height: 1.6;
         }
 
-        /* 側邊導覽列 */
+        /* 側邊導覽列 (恢復條列式) */
         nav {
             width: 260px;
             height: 100vh;
             background-color: var(--primary-color);
             color: white;
             position: fixed;
-            padding: 30px 25px;
+            padding: 50px 25px;
             box-sizing: border-box;
             box-shadow: 4px 0 10px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* 讓內容置中 */
-        }
-
-        /* 個人照片樣式 */
-        .profile-img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%; /* 圓形 */
-            object-fit: cover;
-            border: 3px solid var(--accent-color);
-            margin-bottom: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
         nav h2 {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             letter-spacing: 2px;
-            margin-bottom: 30px;
-            color: #fff;
-            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
         }
 
         nav ul {
             list-style: none;
             padding: 0;
-            width: 100%;
         }
 
         nav ul li {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         nav ul li a {
             color: #cbd5e1;
             text-decoration: none;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             transition: all 0.3s;
             display: block;
-            text-align: center;
         }
 
         nav ul li a:hover {
             color: white;
-            transform: scale(1.05);
+            padding-left: 10px;
         }
 
         /* 主內容區 */
@@ -86,6 +70,21 @@
             padding: 60px 50px;
             width: calc(100% - 260px);
             box-sizing: border-box;
+        }
+
+        /* 簡歷上方的照片樣式 */
+        .resume-header {
+            margin-bottom: 30px;
+        }
+
+        .profile-img-content {
+            width: 150px;
+            height: 150px;
+            border-radius: 12px; /* 這裡改為稍微圓角，看起來更專業 */
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
         }
 
         section {
@@ -108,7 +107,7 @@
             margin-left: 20px;
         }
 
-        /* 佈局設定 */
+        /* 網格佈局 */
         .grid-three {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -130,8 +129,6 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             border: 1px solid #e2e8f0;
             transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
         }
 
         .card:hover {
@@ -140,16 +137,8 @@
             border-color: var(--accent-color);
         }
 
-        .card h4 {
-            margin: 0 0 10px 0;
-            color: var(--primary-color);
-        }
-
-        .card p {
-            margin: 0;
-            font-size: 0.95rem;
-            color: #64748b;
-        }
+        .card h4 { margin: 0 0 10px 0; color: var(--primary-color); }
+        .card p { margin: 0; font-size: 0.95rem; color: #64748b; }
 
         /* 響應式 */
         @media (max-width: 1024px) {
@@ -159,15 +148,15 @@
         @media (max-width: 768px) {
             body { flex-direction: column; }
             nav { width: 100%; height: auto; position: relative; padding: 30px; }
-            main { margin-left: 0; width: 100%; padding: 30px 20px; }
+            main { margin-left: 0; width: 100%; padding: 40px 20px; }
             .grid-three, .grid-two { grid-template-columns: 1fr; }
+            .profile-img-content { width: 120px; height: 120px; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <img src="686540972_1003108218996838_5756587725094398876_n.jpg" alt="個人照" class="profile-img">
         <h2>學習檔案管理</h2>
         <ul>
             <li><a href="#resume">個人簡歷</a></li>
@@ -178,6 +167,9 @@
 
     <main>
         <section id="resume">
+            <div class="resume-header">
+                <img src="686540972_1003108218996838_5756587725094398876_n.jpg" alt="個人照" class="profile-img-content">
+            </div>
             <h3>簡歷</h3>
             <div style="max-width: 400px;">
                 <a href="簡歷.html" class="card">
@@ -189,12 +181,13 @@
 
         <section id="performance">
             <h3>多元表現</h3>
+            <p>使用過往個人申請時的檔案，校系沒更改請見諒orz</p>
             <div class="grid-two">
-                <a href="多元表現.html" class="card">
-                    <h4>多元表現紀錄</h4>
+                <a href="暨大諮人多元表現.pdf" class="card">
+                    <h4>多元表現</h4>
                     <p>課外活動、志願服務與競賽成果。</p>
                 </a>
-                <a href="綜整心得.html" class="card">
+                <a href="暨大諮人多元表現綜整心得.pdf" class="card">
                     <h4>綜整心得</h4>
                     <p>對過往學習歷程的深度總結與反思。</p>
                 </a>
