@@ -56,7 +56,7 @@
             border: 1px solid #333;
         }
 
-        /* 作品標頭與主檔名 */
+        /* 作品標頭 */
         .item-header {
             background-color: #2e2e2e;
             padding: 15px 25px;
@@ -77,53 +77,36 @@
             font-weight: 600;
         }
 
-        /* 作品內容區塊 (模擬圖占位與文字說明) */
+        /* 作品內容區塊 */
         .item-content {
             display: block;
             padding: 25px;
         }
 
-        /* 圖片/圖層占位符區域 */
-        .image-placeholder-container {
+        /* 圖片容器區域 */
+        .image-container {
             margin-bottom: 20px;
         }
-        .placeholder-box {
-            background: linear-gradient(135px, #3a3a3a 0%, #2b2b2b 100%);
-            border: 2px dashed #444;
+        .portfolio-img {
+            width: 100%;
+            display: block;
             border-radius: 6px;
-            padding: 30px 20px;
-            text-align: center;
-            margin-bottom: 12px;
-            color: #aaa;
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            border: 1px solid #444;
+            margin-bottom: 15px;
+            background-color: #222;
         }
-        .placeholder-box:last-child {
+        .portfolio-img:last-child {
             margin-bottom: 0;
         }
-        .placeholder-box.main-file {
-            border-style: solid;
-            background: linear-gradient(135px, #444 0%, #2d2d2d 100%);
-        }
-        .placeholder-box i {
-            display: block;
-            font-size: 0.9rem;
-            color: #888;
-            margin-top: 5px;
-        }
-        .file-name {
-            font-family: "Courier New", Courier, monospace;
-            color: #ffde7d;
-            font-weight: bold;
-            font-size: 1.05rem;
-        }
-        .layer-tag {
+        .layer-badge {
             display: inline-block;
             background-color: #3b5998;
             color: #fff;
             font-size: 0.75rem;
-            padding: 2px 8px;
+            padding: 3px 8px;
             border-radius: 4px;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
             font-weight: bold;
         }
 
@@ -163,7 +146,7 @@
                 display: table;
                 width: 100%;
             }
-            .image-placeholder-container {
+            .image-container {
                 display: table-cell;
                 width: 45%;
                 vertical-align: top;
@@ -188,17 +171,15 @@
 
         <div class="portfolio-grid">
 
+            <!-- 作品 1 -->
             <div class="portfolio-item">
                 <div class="item-header">
                     <span class="item-number">Project 01</span>
                     <div class="item-title">動漫角色融合場景設計</div>
                 </div>
                 <div class="item-content">
-                    <div class="image-placeholder-container">
-                        <div class="placeholder-box main-file">
-                            <span class="file-name">去背.jpg</span>
-                            <i>[ 點擊此處可在原始碼中替換為您的作品圖片路徑 ]</i>
-                        </div>
+                    <div class="image-container">
+                        <img src="去背.jpg" alt="去背.jpg" class="portfolio-img">
                     </div>
                     <div class="item-details">
                         <div class="info-section">
@@ -213,20 +194,17 @@
                 </div>
             </div>
 
+            <!-- 作品 2 -->
             <div class="portfolio-item">
                 <div class="item-header">
                     <span class="item-number">Project 02</span>
                     <div class="item-title">多重材質混合字體視覺設計</div>
                 </div>
                 <div class="item-content">
-                    <div class="image-placeholder-container">
-                        <div class="placeholder-box main-file">
-                            <span class="file-name">字體.jpg</span>
-                        </div>
-                        <div class="placeholder-box">
-                            <span class="layer-tag">關聯圖層</span>
-                            <span class="file-name">字體圖層.png</span>
-                        </div>
+                    <div class="image-container">
+                        <img src="字體.jpg" alt="字體.jpg" class="portfolio-img">
+                        <div class="layer-badge">關聯圖層</div>
+                        <img src="字體圖層.png" alt="字體圖層.png" class="portfolio-img">
                     </div>
                     <div class="item-details">
                         <div class="info-section">
@@ -241,16 +219,15 @@
                 </div>
             </div>
 
+            <!-- 作品 3 -->
             <div class="portfolio-item">
                 <div class="item-header">
                     <span class="item-number">Project 03</span>
                     <div class="item-title">期中海報設計（聖誕節）</div>
                 </div>
                 <div class="item-content">
-                    <div class="image-placeholder-container">
-                        <div class="placeholder-box main-file">
-                            <span class="file-name">期中海報設計.jpg</span>
-                        </div>
+                    <div class="image-container">
+                        <img src="期中海報設計(聖誕節).jpg" alt="期中海報設計(聖誕節).jpg" class="portfolio-img">
                     </div>
                     <div class="item-details">
                         <div class="info-section">
@@ -265,20 +242,17 @@
                 </div>
             </div>
 
+            <!-- 作品 4 -->
             <div class="portfolio-item">
                 <div class="item-header">
                     <span class="item-number">Project 04</span>
                     <div class="item-title">台式風格萬聖節海報設計</div>
                 </div>
                 <div class="item-content">
-                    <div class="image-placeholder-container">
-                        <div class="placeholder-box main-file">
-                            <span class="file-name">萬盛節海報設計.jpg</span>
-                        </div>
-                        <div class="placeholder-box">
-                            <span class="layer-tag">關聯圖層</span>
-                            <span class="file-name">萬盛節海報設計圖層.png</span>
-                        </div>
+                    <div class="image-container">
+                        <img src="萬聖節海報設計.jpg" alt="萬聖節海報設計.jpg" class="portfolio-img">
+                        <div class="layer-badge">關聯圖層</div>
+                        <img src="萬聖節海報設計圖層.png" alt="萬聖節海報設計圖層.png" class="portfolio-img">
                     </div>
                     <div class="item-details">
                         <div class="info-section">
@@ -293,16 +267,15 @@
                 </div>
             </div>
 
+            <!-- 作品 5 -->
             <div class="portfolio-item">
                 <div class="item-header">
                     <span class="item-number">Project 05</span>
                     <div class="item-title">小丑精神形象外框探索</div>
                 </div>
                 <div class="item-content">
-                    <div class="image-placeholder-container">
-                        <div class="placeholder-box main-file">
-                            <span class="file-name">小丑.png</span>
-                        </div>
+                    <div class="image-container">
+                        <img src="小丑.png" alt="小丑.png" class="portfolio-img">
                     </div>
                     <div class="item-details">
                         <div class="info-section">
@@ -317,20 +290,17 @@
                 </div>
             </div>
 
+            <!-- 作品 6 -->
             <div class="portfolio-item">
                 <div class="item-header">
                     <span class="item-number">Project 06</span>
                     <div class="item-title">精緻電玩角色電影海報</div>
                 </div>
                 <div class="item-content">
-                    <div class="image-placeholder-container">
-                        <div class="placeholder-box main-file">
-                            <span class="file-name">電影海報.jpg</span>
-                        </div>
-                        <div class="placeholder-box">
-                            <span class="layer-tag">關聯圖層</span>
-                            <span class="file-name">電影海報圖層.png</span>
-                        </div>
+                    <div class="image-container">
+                        <img src="電影海報.jpg" alt="電影海報.jpg" class="portfolio-img">
+                        <div class="layer-badge">關聯圖層</div>
+                        <img src="電影海報圖層.png" alt="電影海報圖層.png" class="portfolio-img">
                     </div>
                     <div class="item-details">
                         <div class="info-section">
@@ -345,16 +315,15 @@
                 </div>
             </div>
 
+            <!-- 作品 7 -->
             <div class="portfolio-item">
                 <div class="item-header">
                     <span class="item-number">Project 07</span>
                     <div class="item-title">家族照明企業品牌 Logo 展示</div>
                 </div>
                 <div class="item-content">
-                    <div class="image-placeholder-container">
-                        <div class="placeholder-box main-file">
-                            <span class="file-name">Logo展示.jpg</span>
-                        </div>
+                    <div class="image-container">
+                        <img src="Logo展示.jpg" alt="Logo展示.jpg" class="portfolio-img">
                     </div>
                     <div class="item-details">
                         <div class="info-section">
