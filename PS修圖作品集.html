@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photoshop 作品集 | Portfolio</title>
+    <style>
+        /* 基礎全域樣式 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, "Microsoft JhengHei", sans-serif;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* 頁首樣式 */
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 30px;
+        }
+        header h1 {
+            font-size: 2.5rem;
+            color: #fff;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        header p {
+            color: #888;
+            font-size: 1.1rem;
+        }
+
+        /* 作品網格佈局 */
+        .portfolio-grid {
+            display: block;
+        }
+
+        /* 單個作品卡片樣式 */
+        .portfolio-item {
+            background-color: #262626;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: 1px solid #333;
+        }
+
+        /* 作品標頭與主檔名 */
+        .item-header {
+            background-color: #2e2e2e;
+            padding: 15px 25px;
+            border-bottom: 1px solid #383838;
+        }
+        .item-number {
+            font-size: 0.9rem;
+            color: #00adb5;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .item-title {
+            font-size: 1.4rem;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* 作品內容區塊 (模擬圖占位與文字說明) */
+        .item-content {
+            display: block;
+            padding: 25px;
+        }
+
+        /* 圖片/圖層占位符區域 */
+        .image-placeholder-container {
+            margin-bottom: 20px;
+        }
+        .placeholder-box {
+            background: linear-gradient(135px, #3a3a3a 0%, #2b2b2b 100%);
+            border: 2px dashed #444;
+            border-radius: 6px;
+            padding: 30px 20px;
+            text-align: center;
+            margin-bottom: 12px;
+            color: #aaa;
+            transition: all 0.3s ease;
+        }
+        .placeholder-box:last-child {
+            margin-bottom: 0;
+        }
+        .placeholder-box.main-file {
+            border-style: solid;
+            background: linear-gradient(135px, #444 0%, #2d2d2d 100%);
+        }
+        .placeholder-box i {
+            display: block;
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 5px;
+        }
+        .file-name {
+            font-family: "Courier New", Courier, monospace;
+            color: #ffde7d;
+            font-weight: bold;
+            font-size: 1.05rem;
+        }
+        .layer-tag {
+            display: inline-block;
+            background-color: #3b5998;
+            color: #fff;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        /* 文字資訊區域 */
+        .item-details {
+            background-color: #1f1f1f;
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 4px solid #00adb5;
+        }
+        .info-section {
+            margin-bottom: 15px;
+        }
+        .info-section:last-child {
+            margin-bottom: 0;
+        }
+        .info-label {
+            font-weight: bold;
+            color: #00adb5;
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+        .info-text {
+            color: #ccc;
+            font-size: 1rem;
+            text-align: justify;
+        }
+        .info-text.none {
+            color: #666;
+            font-style: italic;
+        }
+
+        /* 響應式優化 (當螢幕較大時，圖片與文字改為並排) */
+        @media (min-width: 768px) {
+            .item-content {
+                display: table;
+                width: 100%;
+            }
+            .image-placeholder-container {
+                display: table-cell;
+                width: 45%;
+                vertical-align: top;
+                padding-right: 25px;
+                margin-bottom: 0;
+            }
+            .item-details {
+                display: table-cell;
+                width: 55%;
+                vertical-align: top;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>PHOTOSHOP 作品集</h1>
+            <p>精選設計作品、合成技術與圖層概念展示</p>
+        </header>
+
+        <div class="portfolio-grid">
+
+            <div class="portfolio-item">
+                <div class="item-header">
+                    <span class="item-number">Project 01</span>
+                    <div class="item-title">動漫角色融合場景設計</div>
+                </div>
+                <div class="item-content">
+                    <div class="image-placeholder-container">
+                        <div class="placeholder-box main-file">
+                            <span class="file-name">去背.jpg</span>
+                            <i>[ 點擊此處可在原始碼中替換為您的作品圖片路徑 ]</i>
+                        </div>
+                    </div>
+                    <div class="item-details">
+                        <div class="info-section">
+                            <span class="info-label">作品簡介</span>
+                            <p class="info-text none">無</p>
+                        </div>
+                        <div class="info-section">
+                            <span class="info-label">設計理念</span>
+                            <p class="info-text">以彰師大宿舍為背景，運用細緻的去背與光影修飾技術，將自己喜愛的動漫角色完美融入在真實校園場景之中，營造出打破次元壁的視覺效果。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-item">
+                <div class="item-header">
+                    <span class="item-number">Project 02</span>
+                    <div class="item-title">多重材質混合字體視覺設計</div>
+                </div>
+                <div class="item-content">
+                    <div class="image-placeholder-container">
+                        <div class="placeholder-box main-file">
+                            <span class="file-name">字體.jpg</span>
+                        </div>
+                        <div class="placeholder-box">
+                            <span class="layer-tag">關聯圖層</span>
+                            <span class="file-name">字體圖層.png</span>
+                        </div>
+                    </div>
+                    <div class="item-details">
+                        <div class="info-section">
+                            <span class="info-label">作品簡介</span>
+                            <p class="info-text none">無</p>
+                        </div>
+                        <div class="info-section">
+                            <span class="info-label">設計理念</span>
+                            <p class="info-text">本作品除了對字型進行特別選定與編輯外，核心在於色片的特效處理。在圖層特效上實驗並混合了多種不同的材質紋理，透過混合模式與遮罩做出極具層次感的字體視覺。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-item">
+                <div class="item-header">
+                    <span class="item-number">Project 03</span>
+                    <div class="item-title">期中海報設計（聖誕節）</div>
+                </div>
+                <div class="item-content">
+                    <div class="image-placeholder-container">
+                        <div class="placeholder-box main-file">
+                            <span class="file-name">期中海報設計(聖誕節).jpg</span>
+                        </div>
+                    </div>
+                    <div class="item-details">
+                        <div class="info-section">
+                            <span class="info-label">作品簡介</span>
+                            <p class="info-text none">無</p>
+                        </div>
+                        <div class="info-section">
+                            <span class="info-label">設計理念</span>
+                            <p class="info-text">針對聖誕節主題進行的主題海報設計。作品中大量運用了物件去背技術、自然的邊緣平滑與融合處理，並針對節慶標題進行了字體變形編輯，強化整體節日視覺的張力。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-item">
+                <div class="item-header">
+                    <span class="item-number">Project 04</span>
+                    <div class="item-title">台式風格萬聖節海報設計</div>
+                </div>
+                <div class="item-content">
+                    <div class="image-placeholder-container">
+                        <div class="placeholder-box main-file">
+                            <span class="file-name">萬盛節海報設計.jpg</span>
+                        </div>
+                        <div class="placeholder-box">
+                            <span class="layer-tag">關聯圖層</span>
+                            <span class="file-name">萬盛節海報設計圖層.png</span>
+                        </div>
+                    </div>
+                    <div class="item-details">
+                        <div class="info-section">
+                            <span class="info-label">作品簡介</span>
+                            <p class="info-text">這是本次個人作品集中結構與工序最複雜的作品之一。在技術層面上，高度整合了字體變形、高難度的字體色片製作、複雜素材去背及精細的邊緣處理。</p>
+                        </div>
+                        <div class="info-section">
+                            <span class="info-label">設計理念</span>
+                            <p class="info-text">大膽將台灣在地文化元素與西方萬聖節風格進行跨文化結合，透過色彩的調配與圖層交織，呈現出別具風味的視覺衝突與美感。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-item">
+                <div class="item-header">
+                    <span class="item-number">Project 05</span>
+                    <div class="item-title">小丑精神形象外框探索</div>
+                </div>
+                <div class="item-content">
+                    <div class="image-placeholder-container">
+                        <div class="placeholder-box main-file">
+                            <span class="file-name">小丑.png</span>
+                        </div>
+                    </div>
+                    <div class="item-details">
+                        <div class="info-section">
+                            <span class="info-label">作品簡介</span>
+                            <p class="info-text none">無</p>
+                        </div>
+                        <div class="info-section">
+                            <span class="info-label">設計理念</span>
+                            <p class="info-text">本設計由兩張圖片組成，分別實驗以兩種極端的視覺語彙來捕捉經典人物的輪廓：一者使用極具視覺衝擊力的「高飽和度色塊」，另一者則使用犀利、純粹的「幾何線條」，深入刻畫角色的精神面貌。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-item">
+                <div class="item-header">
+                    <span class="item-number">Project 06</span>
+                    <div class="item-title">精緻電玩角色電影海報</div>
+                </div>
+                <div class="item-content">
+                    <div class="image-placeholder-container">
+                        <div class="placeholder-box main-file">
+                            <span class="file-name">電影海報.jpg</span>
+                        </div>
+                        <div class="placeholder-box">
+                            <span class="layer-tag">關聯圖層</span>
+                            <span class="file-name">電影海報圖層.png</span>
+                        </div>
+                    </div>
+                    <div class="item-details">
+                        <div class="info-section">
+                            <span class="info-label">作品簡介</span>
+                            <p class="info-text">雖然在編排上主要使用基本的修圖與邊緣處理，但由於所引用的遊戲角色本身美術構造極為繁複與精緻，為了維持其細節不失真，在去背與光影修飾上耗費了相當巨大的心血與功夫。</p>
+                        </div>
+                        <div class="info-section">
+                            <span class="info-label">設計理念</span>
+                            <p class="info-text">本設計由兩張圖片組成，分別實驗以兩種極端的視覺語彙來捕捉經典人物的輪廓：一者使用極具視覺衝擊力的「高飽和度色塊」，另一者則使用犀利、純粹的「幾何線條」，深入刻畫角色的精神面貌。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-item">
+                <div class="item-header">
+                    <span class="item-number">Project 07</span>
+                    <div class="item-title">家族照明企業品牌 Logo 展示</div>
+                </div>
+                <div class="item-content">
+                    <div class="image-placeholder-container">
+                        <div class="placeholder-box main-file">
+                            <span class="file-name">Logo展示.jpg</span>
+                        </div>
+                    </div>
+                    <div class="item-details">
+                        <div class="info-section">
+                            <span class="info-label">作品簡介</span>
+                            <p class="info-text">學以致用，特別替阿公所創立經營的照明公司量身打造一個兼具現代感與識別度的專屬品牌標誌（Logo）。</p>
+                        </div>
+                        <div class="info-section">
+                            <span class="info-label">設計理念</span>
+                            <p class="info-text">核心緊扣照明產業，以「電燈」作為視覺主體，並在其四周精準融入簡約的幾何圖形。透過對稱與等比例的幾何排布，大幅增加商標整體的協和感、穩定度與專業企業形象。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
