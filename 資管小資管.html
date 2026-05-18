@@ -30,7 +30,7 @@
             padding: 40px 20px;
         }
 
-        /* ─── 修改：設定文章內超連結預設帶有底線 ─── */
+        /* 設定文章內超連結預設帶有底線 */
         p a {
             color: var(--accent-color); /* 與副標題一樣的湖水綠 */
             text-decoration: underline; /* 預設自帶底線，方便訪客識別 */
@@ -38,7 +38,7 @@
             transition: color 0.2s ease;/* 讓顏色轉變更平滑 */
         }
 
-        /* ─── 修改：滑鼠懸停在連結上時的視覺反饋 ─── */
+        /* 滑鼠懸停在連結上時的視覺反饋 */
         p a:hover {
             color: #ffffff;             /* 滑鼠移上去時文字與底線一起變成白色 */
             text-decoration: underline; /* 維持底線 */
@@ -158,6 +158,12 @@
             border-bottom: 1px solid var(--border-color);
             padding: 20px;
             text-align: center;
+            cursor: pointer; /* ── 新增：滑鼠移上照片時顯示手勢，提示可點擊 ── */
+            transition: opacity 0.2s ease;
+        }
+
+        .image-placeholder:hover {
+            opacity: 0.8; /* ── 新增：滑鼠懸停時微幅變暗，增加點擊反饋 ── */
         }
 
         .image-placeholder img {
@@ -207,10 +213,61 @@
             box-shadow: 0 4px 15px rgba(22, 160, 133, 0.4);
         }
 
+        /* ─── 新增：點擊放大燈箱（Lightbox / Modal）的 CSS 樣式 ─── */
+        .image-modal {
+            display: none; /* 預設隱藏 */
+            position: fixed;
+            z-index: 9999; /* 確保在最上層 */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9); /* 全黑半透明背景 */
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 85%;
+            border-radius: 4px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.8);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .image-modal.active .modal-content {
+            transform: scale(1); /* 彈出時的放大縮放動畫 */
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover {
+            color: var(--accent-color);
+        }
+
         @media (max-width: 600px) {
             body { padding: 20px 10px; }
             .container { padding: 20px; }
             .image-grid { grid-template-columns: 1fr; }
+            .modal-close { top: 10px; right: 20px; font-size: 30px; }
         }
     </style>
 </head>
@@ -238,7 +295,7 @@
         <section>
             <h2>管理員工作內容</h2>
             <p style="margin-bottom: 20px; color: var(--text-muted);">
-                其實網站管理員的工作並沒有大家想像中的繁複與困難，日常的核心維運工作主要包含以下五大面向：
+                其實網站管理員的工作盤點起來並沒有大家想像中的繁複與困難，日常的核心維運工作主要包含以下五大面向：
             </p>
             
             <ul class="work-list">
@@ -267,37 +324,41 @@
 
         <section>
             <h2>網站維運實績照片</h2>
-            <p style="color: var(--text-muted); font-size: 0.95rem;">以下為「資管小資管」網站後台管理與流量分析之相關實績截圖：</p>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">以下為「資管小資管」網站後台管理與流量分析之相關實績截圖（點擊照片可放大檢視）：</p>
             
             <div class="image-grid">
+                <!-- 照片 1 -->
                 <div class="image-card">
-                    <div class="image-placeholder">
-                        <img src="網站後台介面.png" alt="後台介面" onerror="this.style.display='none';">
+                    <div class="image-placeholder" onclick="openModal(this)">
+                        <img src="網站後台介面.png" alt="網站管理後台介面" onerror="this.style.display='none';">
                         <span>[ 網站後台介面.png ]</span>
                     </div>
                     <div class="image-caption">網站管理後台介面</div>
                 </div>
 
+                <!-- 照片 2 -->
                 <div class="image-card">
-                    <div class="image-placeholder">
-                        <img src="上傳考古題.png" alt="上傳考古題" onerror="this.style.display='none';">
+                    <div class="image-placeholder" onclick="openModal(this)">
+                        <img src="上傳考古題.png" alt="考古題檔案上傳與發佈系統" onerror="this.style.display='none';">
                         <span>[ 上傳考古題.png ]</span>
                     </div>
                     <div class="image-caption">考古題檔案上傳與發佈系統</div>
                 </div>
 
+                <!-- 照片 3 -->
                 <div class="image-card">
-                    <div class="image-placeholder">
-                        <img src="網站到訪人數.png" alt="網站到訪人數" onerror="this.style.display='none';">
+                    <div class="image-placeholder" onclick="openModal(this)">
+                        <img src="網站到訪人數.png" alt="網站到訪人數趨勢統計" onerror="this.style.display='none';">
                         <span>[ 網站到訪人數.png ]</span>
                     </div>
                     <div class="image-caption">網站到訪人數趨勢統計</div>
                 </div>
 
+                <!-- 照片 4 -->
                 <div class="image-card">
-                    <div class="image-placeholder">
-                        <img src="最高紀錄.png" alt="最高紀錄" onerror="this.style.display='none';">
-                        <span>[最高紀錄.png ]</span>
+                    <div class="image-placeholder" onclick="openModal(this)">
+                        <img src="最高紀錄.png" alt="單日/單月到訪量最高紀錄數據" onerror="this.style.display='none';">
+                        <span>[ 最高紀錄.png ]</span>
                     </div>
                     <div class="image-caption">單日/單月到訪量最高紀錄數據</div>
                 </div>
@@ -306,10 +367,42 @@
 
         <footer>
             <p>彰師大資管系 黃證哲</p>
-            <!-- 新增的回到主頁按鈕 -->
             <a href="index.html" class="btn-home">← 回到主頁</a>
         </footer>
     </div>
+
+    <!-- ─── 新增：點擊放大後的隱藏遮罩彈出視窗（Modal DOM 結構） ─── -->
+    <div id="imageModal" class="image-modal" onclick="closeModal()">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalTargetImg" alt="放大圖片檢視">
+    </div>
+
+    <!-- ─── 新增：控制點擊放大與關閉的 JavaScript 邏輯 ─── -->
+    <script>
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalTargetImg');
+
+        // 打開燈箱並抓取被點擊容器內的真實圖片路徑
+        function openModal(element) {
+            const imgInside = element.querySelector('img');
+            
+            // 阻擋如果圖片載入失敗（隱藏狀態）時的點擊
+            if (imgInside && imgInside.style.display !== 'none') {
+                modal.classList.add('active');
+                modalImg.src = imgInside.src;
+                modalImg.alt = imgInside.alt;
+                // 鎖定背景網頁捲軸防止亂動
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        // 關閉燈箱
+        function closeModal() {
+            modal.classList.remove('active');
+            // 恢復網頁捲軸
+            document.body.style.overflow = 'auto';
+        }
+    </script>
 
 </body>
 </html>
