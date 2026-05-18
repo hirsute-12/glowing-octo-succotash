@@ -30,6 +30,20 @@
             padding: 40px 20px;
         }
 
+        /* ─── 新增：設定文章內超連結的顏色 ─── */
+        p a {
+            color: var(--accent-color); /* 改為與副標題一樣的湖水綠 */
+            text-decoration: none;      /* 去除傳統預設底線 */
+            font-weight: bold;          /* 加粗讓同學更容易看見點擊區塊 */
+            transition: color 0.2s ease;/* 讓顏色轉變更平滑 */
+        }
+
+        /* ─── 新增：滑鼠懸停在連結上時的顏色反饋 ─── */
+        p a:hover {
+            color: #ffffff;             /* 滑鼠移上去時變成白色 */
+            text-decoration: underline; /* 懸停時顯現底線增加互動感 */
+        }
+
         .container {
             max-width: 900px;
             margin: 0 auto;
@@ -211,7 +225,7 @@
         <section>
             <h2>接管契機與歷程</h2>
             <p>
-                系上的考古題網站<strong><a href = "https://ncueim0824.wordpress.com/">「資管小資管」</a></strong>長年以來面臨沒有人接管的困境，導致每次同學們想要參考、複習考古題時，往往只能看到很久以前的舊題目。
+                系上的考古題網站<strong><a href="https://ncueim0824.wordpress.com/">「資管小資管」</a></strong>長年以來面臨沒有人接管的困境，導致每次同學們想要參考、複習考古題時，往往只能看到很久以前的舊題目。
             </p>
             <p>
                 看著這個平台的資源被閒置、浪費，我感到十分可惜。同時，我也希望能透過自己微薄的力量，讓未來的學弟妹們有近年考古題可以當作練習。因此，我主動聯繫了當初建立該網站的學姊。
@@ -238,7 +252,7 @@
                 </li>
                 <li class="work-item">
                     <div class="work-title">搜尋引擎優化 (SEO)</div>
-                    <div class="work-desc">針對網站的結構、標籤與內容進行最佳化調整，提升網站在搜尋引擎中的關鍵字排名與整體能見度，讓同學們更容易搜尋到資源。</div>
+                    <div class="work-desc">針對網站的結構、標籤與內容進行最佳化調整，提升網站在搜尋引擎中的關鍵字排名與整體能見度，讓同學們更容易搜尋到資源.</div>
                 </li>
                 <li class="work-item">
                     <div class="work-title">流量分析與報表</div>
@@ -283,7 +297,7 @@
                 <div class="image-card">
                     <div class="image-placeholder">
                         <img src="最高紀錄.png" alt="最高紀錄" onerror="this.style.display='none';">
-                        <span>[ 最高紀錄.png ]</span>
+                        <span>[最高紀錄.png ]</span>
                     </div>
                     <div class="image-caption">單日/單月到訪量最高紀錄數據</div>
                 </div>
