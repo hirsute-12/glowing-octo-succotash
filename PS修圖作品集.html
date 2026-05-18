@@ -159,6 +159,54 @@
                 vertical-align: top;
             }
         }
+        .home-button-container {
+            text-align: center;
+            margin: 60px 0 20px 0;
+        }
+
+        .btn-home {
+            font-family: 'Orbitron', sans-serif;
+            text-decoration: none;
+            color: var(--neon-cyan);
+            border: 2px solid var(--neon-cyan);
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            display: inline-block;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            background: transparent;
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+        }
+
+        .btn-home i {
+            margin-right: 10px;
+        }
+
+        /* 滑動時的發光與反轉效果 */
+        .btn-home:hover {
+            background-color: var(--neon-cyan);
+            color: var(--bg-dark);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.6);
+            transform: translateY(-3px);
+        }
+
+        /* 模擬按鈕內的掃描線動畫 */
+        .btn-home::before {
+            content: "";
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent, rgba(0, 243, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn-home:hover::before {
+            top: 100%;
+        }
     </style>
 </head>
 <body>
@@ -339,6 +387,11 @@
             </div>
 
         </div>
+    </div>
+    <div class="home-button-container">
+        <a href="index.html" class="btn-home">
+            <i class="fa-solid fa-house-chimney-window"></i> RETURN_TO_HOME
+        </a>
     </div>
 
 </body>
