@@ -30,18 +30,18 @@
             padding: 40px 20px;
         }
 
-        /* ─── 新增：設定文章內超連結的顏色 ─── */
+        /* ─── 修改：設定文章內超連結預設帶有底線 ─── */
         p a {
-            color: var(--accent-color); /* 改為與副標題一樣的湖水綠 */
-            text-decoration: none;      /* 去除傳統預設底線 */
-            font-weight: bold;          /* 加粗讓同學更容易看見點擊區塊 */
+            color: var(--accent-color); /* 與副標題一樣的湖水綠 */
+            text-decoration: underline; /* 預設自帶底線，方便訪客識別 */
+            font-weight: bold;          /* 字體加粗 */
             transition: color 0.2s ease;/* 讓顏色轉變更平滑 */
         }
 
-        /* ─── 新增：滑鼠懸停在連結上時的顏色反饋 ─── */
+        /* ─── 修改：滑鼠懸停在連結上時的視覺反饋 ─── */
         p a:hover {
-            color: #ffffff;             /* 滑鼠移上去時變成白色 */
-            text-decoration: underline; /* 懸停時顯現底線增加互動感 */
+            color: #ffffff;             /* 滑鼠移上去時文字與底線一起變成白色 */
+            text-decoration: underline; /* 維持底線 */
         }
 
         .container {
