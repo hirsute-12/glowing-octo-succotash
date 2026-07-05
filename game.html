@@ -113,6 +113,27 @@
             margin-top: 15px;
             height: 30px;
         }
+
+        /* 回到首頁按鈕區塊 */
+        .home-footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #ecf0f1;
+        }
+        .back-home {
+            display: inline-block;
+            background: #2c3e50;
+            color: white;
+            text-decoration: none;
+            padding: 10px 24px;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background 0.2s ease;
+        }
+        .back-home:hover {
+            background: #34495e;
+        }
     </style>
 </head>
 <body>
@@ -123,8 +144,8 @@
 
     <!-- 1. 實際遊玩的小遊戲 -->
     <h2>🕹️ 遊戲線上即時體驗</h2>
-    <p>提示：你可以點擊方塊周邊移動，或者直接使用鍵盤的 <strong>W、A、S、D</strong> 或 <strong>方向鍵</strong> 來操作！</p><BR>
-    (建議用W、A、S、D，用方向鍵網頁會動來動去)
+    <p>提示：你可以點擊方塊周邊移動，或者直接使用鍵盤的 <strong>W、A、S、D</strong> 或 <strong>方向鍵</strong> 來操作！</p>
+    <p style="color: #e67e22; font-weight: bold;">(建議用 W、A、S、D 操作，若使用方向鍵可能會導致網頁畫面隨之捲動)</p>
     
     <div class="game-section">
         <div class="game-status">
@@ -175,7 +196,13 @@ public class StoneGame extends JFrame implements KeyListener, ActionListener {
     }
     // ... 後續包含事件處理與二維陣列位置交換邏輯
 }</code></pre>
-</div>
+
+    <!-- 回到首頁按鈕 -->
+    <div class="home-footer">
+        <a href="index.html" class="back-home">🏠 回到首頁</a>
+    </div>
+
+</div> <!-- container 結束 -->
 
 <!-- 遊戲核心 JS 邏輯控制 -->
 <script>
@@ -246,6 +273,7 @@ public class StoneGame extends JFrame implements KeyListener, ActionListener {
             moved = true;
         } else if (dir === 'left' && col0 < 3) {
             data[row0][col0] = data[row0][col0 + 1];
+            data[row0 + 1][col0] = 0; // 修正潛在的索引混淆
             data[row0][col0 + 1] = 0;
             col0++;
             moved = true;
