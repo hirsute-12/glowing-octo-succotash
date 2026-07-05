@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>石頭迷陣專案開發記錄與成果展現</title>
+    <style>
+        /* 網頁整體樣式 */
+        body {
+            font-family: "微軟正黑體", Arial, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+        }
+        .highlight {
+            background-color: #e8f4fd;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        code, pre {
+            background: #2c3e50;
+            color: #fff;
+            font-family: "Courier New", Courier, monospace;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        pre {
+            padding: 15px;
+            overflow-x: auto;
+            display: block;
+        }
+
+        /* 遊戲區域佈局 */
+        .game-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #2c3e50;
+            padding: 20px;
+            border-radius: 8px;
+            color: #fff;
+            margin: 30px 0;
+        }
+        .game-status {
+            display: flex;
+            justify-content: space-between;
+            width: 320px;
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn:hover { background: #2980b9; }
+        
+        /* 遊戲 4x4 棋盤 */
+        #board {
+            display: grid;
+            grid-template-columns: repeat(4, 75px);
+            grid-template-rows: repeat(4, 75px);
+            gap: 5px;
+            background: #34495e;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .cell {
+            background: #2980b9;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.1s ease;
+        }
+        .cell:hover { background: #3498db; }
+        .empty {
+            background: transparent;
+            border-color: transparent;
+            cursor: default;
+        }
+        #win-msg {
+            color: #e74c3c;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 15px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🎮 《石頭迷陣》Java 遊戲開發記錄與線上體驗</h1>
+    <p>本網頁詳細記錄了經典滑塊小遊戲《石頭迷陣》的開發歷程、核心物件導向觀念，並提供網頁移植版的即時互動體驗。</p>
+
+    <!-- 1. 實際遊玩的小遊戲 -->
+    <h2>🕹️ 遊戲線上即時體驗</h2>
+    <p>提示：你可以點擊方塊周邊移動，或者直接使用鍵盤的 <strong>W、A、S、D</strong> 或 <strong>方向鍵</strong> 來操作！</p>
+    
+    <div class="game-section">
+        <div class="game-status">
+            <span id="step-count">步數: 0</span>
+            <button class="btn" onclick="resetGame()">重新開始</button>
+        </div>
+        <div id="board"></div>
+        <div id="win-msg"></div>
+    </div>
+
+    <!-- 2. 製作過程與設計觀念 -->
+    <h2>💡 專案核心設計觀念</h2>
+    <div class="highlight">
+        <ol>
+            <li><strong>視窗繼承（簡化介面開發）：</strong> 專案透過繼承直接借用了內建的視窗元件。這讓我們不需要從零開發「如何產生視窗、如何點擊關閉」等基礎外殼，能夠將焦點完全集中在遊戲本身的互動邏輯上。</li>
+            <li><strong>虛擬棋盤對映（二維陣列的應用）：</strong> 遊戲的靈魂是一組 4×4 的二維陣列網格。這就像是在幕後建立了一個隱形的虛擬棋盤，用來精準記錄 1 到 15 的數字與空格的相對位置。</li>
+            <li><strong>動態事件監聽（實現人機互動）：</strong> 為了讓程式能夠即時接收玩家的指令，專案加入了監聽機制。當玩家按下鍵盤或選單時，程式能瞬間捕捉到動作，並立刻做出方塊移動或重新開始的反應。</li>
+            <li><strong>數據與畫面的分離（資料驅動視覺）：</strong> 這是遊戲最核心的運作邏輯：<strong>「手控制的是數字，眼看到的是畫面」</strong>。當玩家移動方塊時，程式本質上只是在幕後交換資料，資料改變後，才通知畫筆在前端重新整理。</li>
+        </ol>
+    </div>
+
+    <!-- 3. Java 原始碼分享 -->
+    <h2>💻 Java 專案核心原始碼分享</h2>
+    <p>以下為在電腦端（NetBeans IDE）開發執行時的核心原始碼結構：</p>
+    <pre><code>package stonegame;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.Random;
+
+public class StoneGame extends JFrame implements KeyListener, ActionListener {
+    private int[][] data = new int[4][4]; // 4x4 二維陣列網格
+    private int row0, col0;               // 記錄空格(0)的位置
+    private int step = 0;                  // 計步器
+
+    public StoneGame() {
+        this.setSize(514, 595);
+        this.setTitle("石頭迷陣單機版 v1.0");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+        this.setLayout(null);
+        this.addKeyListener(this);
+        
+        initData();  // 打亂資料邏輯
+        initImage(); // 畫面渲染
+        this.setVisible(true);
+    }
+    // ... 後續包含事件處理與二維陣列位置交換邏輯
+}</code></pre>
+</div>
+
+<!-- 遊戲核心 JS 邏輯控制 -->
+<script>
+    let data = [];
+    let row0 = 0, col0 = 0;
+    let step = 0;
+    let isWon = false;
+    const winData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
+
+    function initData() {
+        let tempArr = [...winData];
+        // 洗牌演算法
+        for (let i = tempArr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [tempArr[i], tempArr[j]] = [tempArr[j], tempArr[i]];
+        }
+        
+        // 轉為 4x4
+        data = [];
+        for (let i = 0; i < 4; i++) {
+            data.push(tempArr.slice(i * 4, i * 4 + 4));
+        }
+
+        // 找 0 的位置
+        for(let i=0; i<4; i++) {
+            for(let j=0; j<4; j++) {
+                if(data[i][j] === 0) {
+                    row0 = i;
+                    col0 = j;
+                }
+            }
+        }
+    }
+
+    function drawBoard() {
+        const board = document.getElementById('board');
+        board.innerHTML = '';
+        
+        for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < 4; j++) {
+                const cell = document.createElement('div');
+                if (data[i][j] === 0) {
+                    cell.className = 'cell empty';
+                } else {
+                    cell.className = 'cell';
+                    cell.innerText = data[i][j];
+                    cell.onclick = () => moveByClick(i, j);
+                }
+                board.appendChild(cell);
+            }
+        }
+        document.getElementById('step-count').innerText = `步數: ${step}`;
+        checkWin();
+    }
+
+    function move(dir) {
+        if (isWon) return;
+        let moved = false;
+        if (dir === 'up' && row0 < 3) {
+            data[row0][col0] = data[row0 + 1][col0];
+            data[row0 + 1][col0] = 0;
+            row0++;
+            moved = true;
+        } else if (dir === 'down' && row0 > 0) {
+            data[row0][col0] = data[row0 - 1][col0];
+            data[row0 - 1][col0] = 0;
+            row0--;
+            moved = true;
+        } else if (dir === 'left' && col0 < 3) {
+            data[row0][col0] = data[row0][col0 + 1];
+            data[row0][col0 + 1] = 0;
+            col0++;
+            moved = true;
+        } else if (dir === 'right' && col0 > 0) {
+            data[row0][col0] = data[row0][col0 - 1];
+            data[row0][col0 - 1] = 0;
+            col0--;
+            moved = true;
+        }
+        
+        if (moved) {
+            step++;
+            drawBoard();
+        }
+    }
+
+    function moveByClick(r, c) {
+        if ((Math.abs(r - row0) === 1 && c === col0) || (Math.abs(c - col0) === 1 && r === row0)) {
+            if (r === row0 + 1) move('up');
+            else if (r === row0 - 1) move('down');
+            else if (c === col0 + 1) move('left');
+            else if (c === col0 - 1) move('right');
+        }
+    }
+
+    function checkWin() {
+        let current = data.flat();
+        let win = current.every((val, i) => val === winData[i]);
+        if (win) {
+            isWon = true;
+            document.getElementById('win-msg').innerText = '🎉 恭喜通關！';
+        }
+    }
+
+    function resetGame() {
+        step = 0;
+        isWon = false;
+        document.getElementById('win-msg').innerText = '';
+        initData();
+        drawBoard();
+    }
+
+    // 鍵盤事件監聽
+    window.addEventListener('keydown', (e) => {
+        if (['ArrowUp', 'KeyW'].includes(e.code)) move('up');
+        if (['ArrowDown', 'KeyS'].includes(e.code)) move('down');
+        if (['ArrowLeft', 'KeyA'].includes(e.code)) move('left');
+        if (['ArrowRight', 'KeyD'].includes(e.code)) move('right');
+    });
+
+    // 初始化啟動
+    initData();
+    drawBoard();
+</script>
+
+</body>
+</html>
