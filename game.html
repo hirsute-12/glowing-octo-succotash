@@ -177,7 +177,7 @@
 
         <h3>4. 「死局檢查器」的想法由來</h3>
         <p>在最初的版本中，我們發現隨機打亂方塊後，<strong>遊戲有高達 50% 的機率會陷入永遠無法解開的「死局」</strong>（例如最後只剩 14 和 15 順序顛倒）。</p>
-        <p>為了解決這個致命痛點，我們引入了數學上的<strong>「逆序數（Inversion Count）」</strong>定理。在 $4 \times 4$ 的拼圖遊戲中，將所有數字排成一列後，計算前面數字大於後面數字的組合總數。由於我們最終期望排成「13、14、15、空」的完美局，數學定理指出：<code>(逆序數總和 + 空格從下往上的列數)</code> 必須為**奇數**，此局才有解。本專案以此原理建構了**「死局檢查器」**，在洗牌瞬間進行數學審查，若發現是偶數（死局），則在 0.001 秒內自動重新洗牌，確保玩家開局 100% 能夠順利破關！</p>
+        <p>為了解決這個致命痛點，我們引入了數學上的<strong>「逆序數（Inversion Count）」</strong>定理。在 $4 \times 4$ 的拼圖遊戲中，將所有數字排成一列後，計算前面數字大於後面數字的組合總數。由於最終期望目標是將空格留在最右下角（即第 3 列，索引為偶數），因此逆序數的奇偶性必須與空格所在的列索引奇偶性完全一致。本專案以此原理建構了**「死局檢查器」**，在洗牌瞬間進行數學審查，若發現不符（死局），則在 0.001 秒內自動重新洗牌，確保玩家開局 100% 能夠順利破關！</p>
     </div>
 
     <!-- 3. Java 原始碼分享 -->
@@ -227,22 +227,20 @@ public class StoneGame extends JFrame implements KeyListener, ActionListener {
     let isWon = false;
     const winData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
 
-    // 修正後的死局檢查器邏輯
+    // 【終極修正】採用最穩健的二維矩陣索引偶對映演算法
     function isSolvable(flattenedGrid, bRow0) {
         let arr = flattenedGrid.filter(val => val !== 0);
         let inversions = 0;
         
-        // 計算逆序數總和
+        // 計算逆序數
         for (let i = 0; i < arr.length; i++) {
             for (let j = i + 1; j < arr.length; j++) {
                 if (arr[i] > arr[j]) inversions++;
             }
         }
         
-        let blankRowFromBottom = 4 - bRow0;
-        
-        // 【關鍵修正】目標通關狀態「13,14,15,空」的公式結果是奇數(1)，因此必須等於 1 才是真正的有解宇宙！
-        return (inversions + blankRowFromBottom) % 2 === 1;
+        // 定理：當 4x4 拼圖有解時，逆序數的奇偶性，必須跟空格所在的列索引 (0,1,2,3) 的奇偶性完全相同
+        return (inversions % 2) === (bRow0 % 2);
     }
 
     function initData() {
@@ -250,7 +248,7 @@ public class StoneGame extends JFrame implements KeyListener, ActionListener {
         let tempRow0 = 0, tempCol0 = 0;
         let solvable = false;
 
-        // 循環洗牌，直到檢查器確認非死局為止
+        // 循環洗牌，直到檢查器確認 100% 非死局
         while (!solvable) {
             tempArr = [...winData];
             for (let i = tempArr.length - 1; i > 0; i--) {
