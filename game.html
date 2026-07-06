@@ -101,9 +101,11 @@
             transition: all 0.1s ease;
         }
         .cell:hover { background: #3498db; }
+        
+        /* 讓空的那一格完全隱形，與網頁底色融合消失 */
         .empty {
-            background: transparent;
-            border-color: transparent;
+            background: #fff;
+            border-color: #fff;
             cursor: default;
         }
         #win-msg {
@@ -273,7 +275,7 @@ public class StoneGame extends JFrame implements KeyListener, ActionListener {
             moved = true;
         } else if (dir === 'left' && col0 < 3) {
             data[row0][col0] = data[row0][col0 + 1];
-            data[row0 + 1][col0] = 0; // 修正潛在的索引混淆
+            // 修正：已移除原本錯誤導致數字消失的殘留程式碼
             data[row0][col0 + 1] = 0;
             col0++;
             moved = true;
