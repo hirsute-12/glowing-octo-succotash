@@ -102,7 +102,7 @@
         }
         .cell:hover { background: #3498db; }
         
-        /* 1. 讓空著的方塊顏色改成 #34495e (完美融入棋盤底色) */
+        /* 讓空著的方塊顏色改成 #34495e (完美融入棋盤底色) */
         .cell.empty, .cell.empty:hover {
             background: #34495e;
             border-color: #34495e;
@@ -171,13 +171,13 @@
         <p>不論是原生的 Java 桌面端還是移植後的網頁端，本專案皆嚴格實踐了課堂上所學到的三大核心資訊觀念：</p>
         <ul>
             <li><strong>視窗繼承（Inheritance）：</strong> 原生專案透過 <code>extends JFrame</code> 繼承 Java 內建視窗，免去重新發明輪子，直接在外殼上堆疊遊戲邏輯。</li>
-            <li><strong>虛擬棋盤對映（2D Array）：</strong> 核心資料結構採用 4x4 的**「二維陣列」**，將畫面上的視覺方塊與幕後的矩形矩陣做一對一的資料綁定。</li>
+            <li><strong>虛擬棋盤對映（2D Array）：</strong> 核心資料結構採用 $4 \times 4$ 的**二維陣列**，將畫面上的視覺方塊與幕後的矩形矩陣做一對一的資料綁定。</li>
             <li><strong>數據與畫面的分離（Data-Driven UI）：</strong> 手控制的是二維陣列的數字交換（資料層），眼看到的是經由 <code>repaint()</code> 刷新後的方塊（畫面層），實現資料驅動視覺的進階架構。</li>
         </ul>
 
         <h3>4. 「死局檢查器」的想法由來</h3>
         <p>在最初的版本中，我們發現隨機打亂方塊後，<strong>遊戲有高達 50% 的機率會陷入永遠無法解開的「死局」</strong>（例如最後只剩 14 和 15 順序顛倒）。</p>
-        <p>為了解決這個致命痛點，我們引入了數學上的<strong>「逆序數（Inversion Count）」</strong>定理。在 4x4 的拼圖遊戲中，將所有數字排成一列後，計算前面數字大於後面數字的組合總數。數學家證明：<code>(逆序數總和 + 空格從下往上的列數)</code> 必須為**偶數**，此局才有解。本專案以此原理建構了**「死局檢查器」**，在洗牌瞬間進行數學審查，若發現是奇數（死局），則在 0.001 秒內自動重新洗牌，確保玩家開局 100% 能夠順利破關！</p>
+        <p>為了解決這個致命痛點，我們引入了數學上的<strong>「逆序數（Inversion Count）」</strong>定理。在 $4 \times 4$ 的拼圖遊戲中，將所有數字排成一列後，計算前面數字大於後面數字的組合總數。由於我們最終期望排成「13、14、15、空」的完美局，數學定理指出：<code>(逆序數總和 + 空格從下往上的列數)</code> 必須為**奇數**，此局才有解。本專案以此原理建構了**「死局檢查器」**，在洗牌瞬間進行數學審查，若發現是偶數（死局），則在 0.001 秒內自動重新洗牌，確保玩家開局 100% 能夠順利破關！</p>
     </div>
 
     <!-- 3. Java 原始碼分享 -->
@@ -227,9 +227,8 @@ public class StoneGame extends JFrame implements KeyListener, ActionListener {
     let isWon = false;
     const winData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
 
-    // 3. 加入死局檢查器的程式碼
+    // 修正後的死局檢查器邏輯
     function isSolvable(flattenedGrid, bRow0) {
-        // 過濾掉空格 0，只計算有效數字
         let arr = flattenedGrid.filter(val => val !== 0);
         let inversions = 0;
         
@@ -240,11 +239,10 @@ public class StoneGame extends JFrame implements KeyListener, ActionListener {
             }
         }
         
-        // 算出空格從下往上數是第幾列 (row0 的範圍是 0~3)
         let blankRowFromBottom = 4 - bRow0;
         
-        // 定理：(逆序數 + 空格列數) 為偶數時 100% 有解
-        return (inversions + blankRowFromBottom) % 2 === 0;
+        // 【關鍵修正】目標通關狀態「13,14,15,空」的公式結果是奇數(1)，因此必須等於 1 才是真正的有解宇宙！
+        return (inversions + blankRowFromBottom) % 2 === 1;
     }
 
     function initData() {
@@ -255,13 +253,11 @@ public class StoneGame extends JFrame implements KeyListener, ActionListener {
         // 循環洗牌，直到檢查器確認非死局為止
         while (!solvable) {
             tempArr = [...winData];
-            // 隨機洗牌演算法
             for (let i = tempArr.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [tempArr[i], tempArr[j]] = [tempArr[j], tempArr[i]];
             }
 
-            // 預先找出空格 0 的模擬位置
             for (let i = 0; i < tempArr.length; i++) {
                 if (tempArr[i] === 0) {
                     tempRow0 = Math.floor(i / 4);
@@ -269,11 +265,9 @@ public class StoneGame extends JFrame implements KeyListener, ActionListener {
                 }
             }
 
-            // 送入檢查器進行數學審查
             solvable = isSolvable(tempArr, tempRow0);
         }
 
-        // 通過死局審查，正式寫入遊戲二維陣列
         data = [];
         for (let i = 0; i < 4; i++) {
             data.push(tempArr.slice(i * 4, i * 4 + 4));
@@ -360,7 +354,6 @@ public class StoneGame extends JFrame implements KeyListener, ActionListener {
         drawBoard();
     }
 
-    // 鍵盤事件監聽
     window.addEventListener('keydown', (e) => {
         if (['ArrowUp', 'KeyW'].includes(e.code)) move('up');
         if (['ArrowDown', 'KeyS'].includes(e.code)) move('down');
@@ -368,7 +361,6 @@ public class StoneGame extends JFrame implements KeyListener, ActionListener {
         if (['ArrowRight', 'KeyD'].includes(e.code)) move('right');
     });
 
-    // 初始化啟動
     initData();
     drawBoard();
 </script>
